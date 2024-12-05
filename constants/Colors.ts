@@ -31,4 +31,5 @@ export const darkTheme = {
   inputBackground: '#222',
   buttonBackground: '#4CAF50',
   buttonText: '#ffffff',
+  titleColor: '#8BC34A'
 };

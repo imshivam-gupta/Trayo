@@ -23,6 +23,7 @@ export default function RootLayout() {
 
     const [loaded, error] = useFonts({
         SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+        SoraBold: require("../assets/fonts/Sora-Bold.ttf"),
         ...FontAwesome.font,
     });
 

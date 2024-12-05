@@ -8,6 +8,7 @@ import {Link} from "expo-router";
 import {visitors} from "@babel/traverse";
 import merge = visitors.merge;
 import {useSupabase} from "@/context/supabase-provider";
+import {darkTheme} from "@/constants/Colors";
 
 
 
@@ -37,7 +38,7 @@ export default function LoginScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                <Text style={styles.title}>Trayo</Text>
+                <Text style={styles.title}>TRAYO</Text>
                 <Text style={styles.tagline}>Balance &nbsp; Simplify &nbsp; Thrive</Text>
 
                 {/* Email Input */}
@@ -121,10 +122,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     title: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: '#fff',
-        marginBottom: 8,
+        fontFamily: 'SoraBold',
+        fontSize: 42,
+        letterSpacing: -1.5,
+        color: darkTheme.titleColor,
+        textShadowColor: 'rgba(139, 195, 74, 0.3)',
+        textShadowOffset: {width: 0, height: 2},
+        textShadowRadius: 15,
     },
     tagline: {
         fontSize: 18,
