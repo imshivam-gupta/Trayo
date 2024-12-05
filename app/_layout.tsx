@@ -1,39 +1,72 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
+import {Slot, Stack} from "expo-router";
 import { useColorScheme } from '@/hooks/useColorScheme';
+import {SessionProvider} from "@/context/authCtx";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+export {
+    ErrorBoundary,
+} from "expo-router";
+
+
+export const unstable_settings = {
+    initialRouteName: "login",
+};
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    const [loaded, error] = useFonts({
+        SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+        ...FontAwesome.font,
+    });
+
+    useEffect(() => {
+        if (error) throw error;
+    }, [error]);
+
+    useEffect(() => {
+        if (loaded) {
+          SplashScreen.hideAsync();
+        }
+    }, [loaded]);
+
+    if (!loaded) {
+        return null;
     }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <RootLayoutNav />
   );
+}
+
+
+function RootLayoutNav() {
+    const colorScheme = useColorScheme();
+
+    return (
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <SessionProvider>
+            {/*<Slot />*/}
+              <Stack
+                  screenOptions={{
+                        headerShown: false,
+                  }}
+              >
+                  <Stack.Screen name="login" />
+                  <Stack.Screen
+                      name="register"
+                      options={{
+                          presentation: 'modal',
+                      }}
+                  />
+              </Stack>
+          </SessionProvider>
+      </ThemeProvider>
+    );
 }

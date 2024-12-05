@@ -24,3 +24,11 @@ export const Colors = {
     tabIconSelected: tintColorDark,
   },
 };
+
+export const darkTheme = {
+  background: '#121212',
+  text: '#ffffff',
+  inputBackground: '#222',
+  buttonBackground: '#4CAF50',
+  buttonText: '#ffffff',
+};
