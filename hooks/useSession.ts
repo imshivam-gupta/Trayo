@@ -1,5 +1,5 @@
 import React from "react";
-import {AuthContext} from "@/context/authCtx";
+import {AuthContext} from "@/context/supabase-provider";
 
 export function useSession() {
     const value = React.useContext(AuthContext);

@@ -2,7 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 import {useCallback, useEffect} from "react";
 import useAsyncState from "@/hooks/useAsyncState";
 import {Platform} from "react-native";
-import {SigninProps} from "@/context/authCtx";
+import {SigninProps} from "@/context/supabase-provider";
 
 type UseStateHook<T> = [[boolean, T | null], (value: T | null) => void];
 

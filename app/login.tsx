@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Alert} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import * as AppleAuthentication from 'expo-apple-authentication';
-
-// Custom UI Components
 import CustomInput from '@/components/ui/CustomInput';
 import CustomButton from '@/components/ui/CustomButton';
 import Divider from '@/components/ui/Divider';
 import {Link} from "expo-router";
+import {visitors} from "@babel/traverse";
+import merge = visitors.merge;
+import {useSupabase} from "@/context/supabase-provider";
+
+
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { signInWithPassword } = useSupabase();
+
+    async function signInWithEmail() {
+        try{
+            await signInWithPassword(email, password);
+        } catch (error) {
+            Alert.alert(error.message)
+            return;
+        }
+    }
 
     const handleLogin = () => {
         console.log('Logging in with:', email, password);
+        signInWithEmail();
     };
 
     const handleGoogleSignIn = () => {

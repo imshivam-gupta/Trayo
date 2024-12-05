@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import {Slot, Stack} from "expo-router";
 import { useColorScheme } from '@/hooks/useColorScheme';
-import {SessionProvider} from "@/context/authCtx";
+import {SupabaseProvider} from "@/context/supabase-provider";
 
 export {
     ErrorBoundary,
@@ -32,7 +32,7 @@ export default function RootLayout() {
 
     useEffect(() => {
         if (loaded) {
-          SplashScreen.hideAsync();
+            SplashScreen.hideAsync();
         }
     }, [loaded]);
 
@@ -40,9 +40,9 @@ export default function RootLayout() {
         return null;
     }
 
-  return (
-    <RootLayoutNav />
-  );
+    return (
+        <RootLayoutNav />
+    );
 }
 
 
@@ -50,23 +50,23 @@ function RootLayoutNav() {
     const colorScheme = useColorScheme();
 
     return (
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <SessionProvider>
-            {/*<Slot />*/}
-              <Stack
-                  screenOptions={{
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <SupabaseProvider>
+                {/*<Slot />*/}
+                <Stack
+                    screenOptions={{
                         headerShown: false,
-                  }}
-              >
-                  <Stack.Screen name="login" />
-                  <Stack.Screen
-                      name="register"
-                      options={{
-                          presentation: 'modal',
-                      }}
-                  />
-              </Stack>
-          </SessionProvider>
-      </ThemeProvider>
+                    }}
+                >
+                    <Stack.Screen name="login" />
+                    <Stack.Screen
+                        name="register"
+                        options={{
+                            presentation: 'modal',
+                        }}
+                    />
+                </Stack>
+            </SupabaseProvider>
+        </ThemeProvider>
     );
 }

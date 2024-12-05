@@ -1,19 +1,7 @@
-import { Redirect, Stack } from 'expo-router';
-import {ThemedText} from "@/components/ThemedText";
-import {useSession} from "@/hooks/useSession";
-
+import {  Stack } from 'expo-router';
 
 export default function AppLayout() {
-    const { session, isLoading } = useSession();
-
-    if (isLoading) {
-        return <ThemedText>Loading...</ThemedText>;
-    }
-
-    if (!session) {
-        return <Redirect href="/login" />;
-    }
-
+console.log('AppLayout');
     return (
         <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

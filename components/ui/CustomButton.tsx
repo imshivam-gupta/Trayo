@@ -7,11 +7,12 @@ interface Props {
     backgroundColor?: string;
     textColor?: string;
     icon?: React.ReactNode;
+    disabled?: boolean;
 }
 
-const CustomButton: React.FC<Props> = ({ title, onPress, backgroundColor = '#000', textColor = '#fff', icon }) => {
+const CustomButton: React.FC<Props> = ({ title, onPress, backgroundColor = '#000', textColor = '#fff', icon, disabled }) => {
     return (
-        <TouchableOpacity style={[styles.button, { backgroundColor }]} onPress={onPress}>
+        <TouchableOpacity style={[styles.button, { backgroundColor }]} onPress={onPress} disabled={disabled}>
             <View style={styles.content}>
                 {icon && <View style={styles.icon}>{icon}</View>}
                 <Text style={[styles.text, { color: textColor }]}>{title}</Text>

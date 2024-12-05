@@ -7,9 +7,18 @@ interface Props {
     value: string;
     onChangeText: (text: string) => void;
     secureTextEntry?: boolean;
+    keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad'; // Add keyboardType prop
+    autoCorrect?: boolean; // Add autoCorrect prop for name input
 }
 
-const CustomInput: React.FC<Props> = ({ placeholder, value, onChangeText, secureTextEntry }) => {
+const CustomInput: React.FC<Props> = ({
+                                          placeholder,
+                                          value,
+                                          onChangeText,
+                                          secureTextEntry,
+                                          keyboardType = 'default', // Default keyboard type
+                                          autoCorrect = true, // Default autoCorrect value
+                                      }) => {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     return (
@@ -21,6 +30,8 @@ const CustomInput: React.FC<Props> = ({ placeholder, value, onChangeText, secure
                 value={value}
                 onChangeText={onChangeText}
                 secureTextEntry={secureTextEntry && !isPasswordVisible} // Toggle password visibility
+                keyboardType={keyboardType} // Set keyboard type
+                autoCorrect={autoCorrect} // Control autoCorrect for name input
             />
             {secureTextEntry && (
                 <TouchableOpacity
